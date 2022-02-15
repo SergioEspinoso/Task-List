@@ -1,6 +1,8 @@
 const Joi = require('joi');
 const { createTask,
-  getAllTasks, getTaskById, updateTaskById } = require('../models/tasksModel');
+  getAllTasks,
+  getTaskById,
+  updateTaskById } = require('../models/tasksModel');
 const { badRequest, notFound } = require('../utils/dictionary');
 const errorHandling = require('../utils/errorHandling');
 

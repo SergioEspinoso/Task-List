@@ -1,4 +1,7 @@
-const { createTaskService, getAllTasksService, getTaskByIdService, updateTaskByIdService } = require('../services/tasksService');
+const { createTaskService,
+  getAllTasksService,
+  getTaskByIdService,
+  updateTaskByIdService } = require('../services/tasksService');
 const { created, success } = require('../utils/dictionary');
 
 const createTaskController = async (req, res, next) => {
