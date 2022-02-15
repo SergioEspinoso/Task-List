@@ -1,6 +1,6 @@
 const Joi = require('joi');
-const { createTask, getAllTasks } = require('../models/tasksModel');
-const { badRequest } = require('../utils/dictionary');
+const { createTask, getAllTasks, getTaskById } = require('../models/tasksModel');
+const { badRequest, notFound } = require('../utils/dictionary');
 const errorHandling = require('../utils/errorHandling');
 
 const taskSchema = Joi.object({
@@ -26,7 +26,18 @@ const getAllTasksService = async () => {
   return getAll;
 }
 
+const getTaskByIdService = async (id) => {
+  const getTask = await getTaskById(id);
+
+  if (!getTask) {
+    throw errorHandling(notFound, 'task not found');
+  }
+
+  return getTask;
+}
+
 module.exports = {
   createTaskService,
   getAllTasksService,
+  getTaskByIdService,
 };
