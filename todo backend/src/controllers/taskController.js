@@ -1,5 +1,5 @@
-const { createTaskService } = require('../services/tasksService');
-const { created } = require('../utils/dictionary');
+const { createTaskService, getAllTasksService } = require('../services/tasksService');
+const { created, success } = require('../utils/dictionary');
 
 const createTaskController = async (req, res, next) => {
   try {
@@ -11,6 +11,17 @@ const createTaskController = async (req, res, next) => {
   }
 };
 
+const getAllTasksController = async (_req, res, next) => {
+  try {
+    const getAllTasks = await getAllTasksService();
+    return res.status(success).json(getAllTasks);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 module.exports = {
   createTaskController,
+  getAllTasksController,
 };

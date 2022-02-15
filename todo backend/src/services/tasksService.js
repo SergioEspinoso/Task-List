@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { createTask } = require('../models/tasksModel');
+const { createTask, getAllTasks } = require('../models/tasksModel');
 const { badRequest } = require('../utils/dictionary');
 const errorHandling = require('../utils/errorHandling');
 
@@ -20,6 +20,13 @@ const createTaskService = async (task, status) => {
   return createdTask;
 };
 
+const getAllTasksService = async () => {
+  const getAll = await getAllTasks();
+
+  return getAll;
+}
+
 module.exports = {
   createTaskService,
+  getAllTasksService,
 };
