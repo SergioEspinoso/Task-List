@@ -1,5 +1,6 @@
 const Joi = require('joi');
-const { createTask, getAllTasks, getTaskById } = require('../models/tasksModel');
+const { createTask,
+  getAllTasks, getTaskById, updateTaskById } = require('../models/tasksModel');
 const { badRequest, notFound } = require('../utils/dictionary');
 const errorHandling = require('../utils/errorHandling');
 
@@ -40,8 +41,21 @@ const getTaskByIdService = async (id) => {
   return getTask;
 }
 
+const updateTaskByIdService = async (id, task, status) => {
+  const { error } = idSchema.validate(id);
+
+  if (error) {
+    throw errorHandling(notFound, 'task not found');
+  }
+
+  const updateTask = await updateTaskById(id, task, status);
+
+  return updateTask;
+}
+
 module.exports = {
   createTaskService,
   getAllTasksService,
   getTaskByIdService,
+  updateTaskByIdService,
 };

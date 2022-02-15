@@ -26,8 +26,19 @@ const getTaskById = async (id) => {
   return task;
 }
 
+const updateTaskById = async (id, task, status) => {
+  const connect = await connection();
+  const updateTask = await connect.collection('tasks').updateOne(
+    { _id: ObjectId(id) },
+    { $set: { task, status } }
+  );
+
+  return updateTask;
+}
+
 module.exports = {
   createTask,
   getAllTasks,
   getTaskById,
+  updateTaskById,
 }
