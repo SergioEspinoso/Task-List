@@ -13,6 +13,13 @@ const createTask = async (task, status) => {
   };
 }
 
+const getAllTasks = async () => {
+  const connect = await connection();
+  const allTasks = await connect.collection('tasks').find({}).toArray();
+  return allTasks;
+}
+
 module.exports = {
   createTask,
+  getAllTasks,
 }
