@@ -41,6 +41,10 @@ const getTaskByIdService = async (id) => {
 
   const getTask = await getTaskById(id);
 
+  if (!getTask) {
+    throw errorHandling(notFound, 'task not found');
+  }
+
   return getTask;
 };
 
