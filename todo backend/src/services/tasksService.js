@@ -2,7 +2,8 @@ const Joi = require('joi');
 const { createTask,
   getAllTasks,
   getTaskById,
-  updateTaskById } = require('../models/tasksModel');
+  updateTaskById,
+  deleteTaskById } = require('../models/tasksModel');
 const { badRequest, notFound } = require('../utils/dictionary');
 const errorHandling = require('../utils/errorHandling');
 
@@ -29,7 +30,7 @@ const getAllTasksService = async () => {
   const getAll = await getAllTasks();
 
   return getAll;
-}
+};
 
 const getTaskByIdService = async (id) => {
   const { error } = idSchema.validate(id);
@@ -41,7 +42,7 @@ const getTaskByIdService = async (id) => {
   const getTask = await getTaskById(id);
 
   return getTask;
-}
+};
 
 const updateTaskByIdService = async (id, task, status) => {
   const { error } = idSchema.validate(id);
@@ -53,11 +54,24 @@ const updateTaskByIdService = async (id, task, status) => {
   const updateTask = await updateTaskById(id, task, status);
 
   return updateTask;
-}
+};
+
+const deleteTaskBydIdService = async (id) => {
+  const { error } = idSchema.validate(id);
+
+  if (error) {
+    throw errorHandling(notFound, 'task not found');
+  }
+
+  const deleteTask = await deleteTaskById(id);
+
+  return deleteTask;
+};
 
 module.exports = {
   createTaskService,
   getAllTasksService,
   getTaskByIdService,
   updateTaskByIdService,
+  deleteTaskBydIdService,
 };

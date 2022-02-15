@@ -1,7 +1,8 @@
 const { createTaskService,
   getAllTasksService,
   getTaskByIdService,
-  updateTaskByIdService } = require('../services/tasksService');
+  updateTaskByIdService,
+  deleteTaskBydIdService } = require('../services/tasksService');
 const { created, success } = require('../utils/dictionary');
 
 const createTaskController = async (req, res, next) => {
@@ -46,9 +47,22 @@ const updateTaskByIdController = async (req, res, next) => {
   }
 };
 
+const deleteTaskByIdController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await deleteTaskBydIdService(id);
+
+    return res.status(success).json('task deleted');
+  } catch (error) {
+
+  }
+};
+
 module.exports = {
   createTaskController,
   getAllTasksController,
   getTasksByIdController,
   updateTaskByIdController,
+  deleteTaskByIdController,
 };
