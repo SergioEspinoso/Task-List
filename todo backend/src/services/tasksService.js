@@ -8,6 +8,8 @@ const taskSchema = Joi.object({
   status: Joi.string().required(),
 });
 
+const idSchema = Joi.string().length(24);
+
 const createTaskService = async (task, status) => {
   const { error } = taskSchema.validate({ task, status });
 
@@ -27,11 +29,13 @@ const getAllTasksService = async () => {
 }
 
 const getTaskByIdService = async (id) => {
-  const getTask = await getTaskById(id);
+  const { error } = idSchema.validate(id);
 
-  if (!getTask) {
+  if (error) {
     throw errorHandling(notFound, 'task not found');
   }
+
+  const getTask = await getTaskById(id);
 
   return getTask;
 }
